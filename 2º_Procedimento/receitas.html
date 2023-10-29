@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Receitas</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .bg-warning {
+      background-color: #475a66 !important;
+    }
+  </style>
+</head>
+<body class="container-fluid bg-warning">
+  <h1>Catálogo de Receitas</h1>
+  <div id="pnlCatalogo" class="d-flex flex-wrap">
+  </div>
+
+  <script>
+    // Dados das receitas em formato JSON
+    const receitas = [
+      {
+        titulo: "Arroz de Couve-flor",
+        imagem: "https://m.ftscrt.com/static/recipe/d3826a3a-ee31-4769-97fd-1271ab986a48_fs2.jpg",
+        preparo: "Instruções para a preparação do Arroz de Couve-flor.",
+        ingredientes: ["Couve-flor", "Água", "Sal", "Azeite", "Temperos"],
+      },
+      {
+        titulo: "Bolo de Café",
+        imagem: "https://www.sabornamesa.com.br/media/k2/items/cache/cd81e1cfd061a9d00f64f30a0272cbf3_XL.jpg",
+        preparo: "Instruções para a preparação do Bolo de Café.",
+        ingredientes: ["Café", "Farinha de Trigo", "Açúcar", "Ovos", "Fermento"],
+      },
+      {
+        titulo: "Coxinha de Brigadeiro com Morango",
+        imagem: "https://www.receitas-sem-fronteiras.com/uploads/recipe/coxinha-brigadeiro-jpg_crop.jpeg?1442443620",
+        preparo: "Instruções para a preparação da Coxinha de Brigadeiro com Morango.",
+        ingredientes: ["Brigadeiro", "Morango", "Chocolate", "Farinha de Trigo"],
+      },
+    ];
+
+    // Função para criar a lista de ingredientes em HTML
+    function getListaIngredientes(receita) {
+      const listaHTML = receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join("");
+      return `<ul>${listaHTML}</ul>`;
+    }
+
+    // Função para criar o card de receita em HTML
+    function getCard(receita) {
+      return `
+        <div class="card" style="width: 250px; margin: 10px;">
+          <img class="card-img-top" src="${receita.imagem}" alt="${receita.titulo}">
+          <div class="card-body">
+            <h5 class="card-title">${receita.titulo}</h5>
+            <div class="card-text">
+              ${getListaIngredientes(receita)}
+              <hr>
+              ${receita.preparo}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Função para preencher o catálogo de receitas
+    function preencheCatalogo() {
+      const pnlCatalogo = document.getElementById("pnlCatalogo");
+      const cardsHTML = receitas.map(receita => getCard(receita)).join("");
+      pnlCatalogo.innerHTML = cardsHTML;
+    }
+
+    // Chamada da função para preencher o catálogo de receitas no evento onload
+    window.onload = preencheCatalogo;
+  </script>
+</body>
+</html>
